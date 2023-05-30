@@ -1,4 +1,5 @@
-﻿using eShopCln.Application.Products.Commands.CreateProduct;
+﻿using eShopCln.API.Abstractions;
+using eShopCln.Application.Products.Commands.CreateProduct;
 using eShopCln.Contracts.Products;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -7,13 +8,18 @@ namespace eShopCln.API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class ProductsController : ControllerBase
+public class ProductsController : ApiController
 {
-    private readonly ISender _mediator;
-
-    public ProductsController(ISender mediator)
+    public ProductsController(ISender sender)
+        : base(sender)
     {
-        _mediator = mediator;
+    }
+
+    [HttpGet("{id:guid}")]
+    public async Task<IActionResult> GetProductById(Guid id)
+    {
+        await Task.CompletedTask;
+        throw new NotImplementedException();
     }
 
     [HttpPost]
@@ -27,8 +33,16 @@ public class ProductsController : ControllerBase
             Description: product.Description
         );
 
-        var id = await _mediator.Send(productCommand);
+        var result = await _sender.Send(productCommand);
 
-        return Created(id.Value.ToString(), null);
+        if (result.IsFailure)
+        {
+            return HandleFailure(result);
+        }
+
+        return Created(
+            nameof(GetProductById),
+            new { id = result.Value },
+            result.Value);
     }
 }
