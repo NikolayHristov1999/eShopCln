@@ -6,6 +6,7 @@ namespace eShopCln.API.Controllers;
 [Route("[controller]")]
 public class HealthController : ControllerBase
 {
+    [HttpGet]
     public IActionResult Healthy()
     {
         return Ok("Healthy");
