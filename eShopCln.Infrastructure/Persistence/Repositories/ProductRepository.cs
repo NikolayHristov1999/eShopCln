@@ -17,5 +17,8 @@ namespace eShopCln.Infrastructure.Persistence.Repositories
             _context.Products.Add(product);
             await _context.SaveChangesAsync();
         }
+
+        public async Task<Product?> GetByIdAsync(Guid id)
+            => await _context.Products.FindAsync(id);
     }
 }

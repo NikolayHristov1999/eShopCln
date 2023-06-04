@@ -17,7 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{DD59ACCE-A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArchitectureTests.cs", "ArchitectureTests.cs\ArchitectureTests.cs.csproj", "{D29162F7-9BE4-4ABF-8B4F-AC793740D14C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eShopCln.Contracts", "eShopCln.Contracts\eShopCln.Contracts.csproj", "{B0E2269F-8B66-4BA7-9E0F-A07231798461}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eShopCln.Contracts", "eShopCln.Contracts\eShopCln.Contracts.csproj", "{B0E2269F-8B66-4BA7-9E0F-A07231798461}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,13 +1,15 @@
 ﻿using eShopCln.API.Abstractions;
 using eShopCln.Application.Products.Commands.CreateProduct;
+using eShopCln.Application.Products.Queries.GetProductById;
 using eShopCln.Contracts.Products;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace eShopCln.API.Controllers;
 
-[Route("api/[controller]")]
 [ApiController]
+[Route("api/[controller]")]
+[ApiVersion("1.0")]
 public class ProductsController : ApiController
 {
     public ProductsController(ISender sender)
@@ -18,8 +20,15 @@ public class ProductsController : ApiController
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> GetProductById(Guid id)
     {
-        await Task.CompletedTask;
-        throw new NotImplementedException();
+        var query = new GetProductByIdQuery(id);
+        var product = await _sender.Send(query);
+
+        if (product.IsFailure)
+        {
+            return HandleFailure(product);
+        }
+
+        return Ok(product.Value);
     }
 
     [HttpPost]
@@ -40,7 +49,7 @@ public class ProductsController : ApiController
             return HandleFailure(result);
         }
 
-        return Created(
+        return CreatedAtAction(
             nameof(GetProductById),
             new { id = result.Value },
             result.Value);
