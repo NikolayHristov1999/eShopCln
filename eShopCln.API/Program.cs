@@ -2,7 +2,6 @@ using eShopCln.API;
 using eShopCln.Application;
 using eShopCln.Infrastructure;
 using eShopCln.Infrastructure.Persistence;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,12 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services
     .AddPresentation()
     .AddApplication()
-    .AddInfrastructure()
-    .AddApiVersioning(config =>
-    {
-        config.AssumeDefaultVersionWhenUnspecified = true;
-        config.DefaultApiVersion = new ApiVersion(1, 0);
-    });
+    .AddInfrastructure();
 
 var app = builder.Build();
 

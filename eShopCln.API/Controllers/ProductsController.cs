@@ -1,4 +1,5 @@
-﻿using eShopCln.API.Abstractions;
+﻿using AutoMapper;
+using eShopCln.API.Abstractions;
 using eShopCln.Application.Products.Commands.CreateProduct;
 using eShopCln.Application.Products.Queries.GetProductById;
 using eShopCln.Contracts.Products;
@@ -12,9 +13,12 @@ namespace eShopCln.API.Controllers;
 [ApiVersion("1.0")]
 public class ProductsController : ApiController
 {
-    public ProductsController(ISender sender)
+    private readonly IMapper _mapper;
+
+    public ProductsController(ISender sender, IMapper mapper)
         : base(sender)
     {
+        _mapper = mapper;
     }
 
     [HttpGet("{id:guid}")]
@@ -34,13 +38,7 @@ public class ProductsController : ApiController
     [HttpPost]
     public async Task<IActionResult> CreateProduct(CreateProductRequest product)
     {
-        var productCommand = new CreateProductCommand(
-            Name: product.Name,
-            Price: product.Price,
-            ShortDescription: product.ShortDescription,
-            Quantity: product.Quantity,
-            Description: product.Description
-        );
+        var productCommand = _mapper.Map<CreateProductCommand>(product);
 
         var result = await _sender.Send(productCommand);
 
