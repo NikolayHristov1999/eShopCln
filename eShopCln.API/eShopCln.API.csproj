@@ -7,6 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AspNetCore.HealthChecks.SqlServer" Version="7.0.0-rc2.11" />
+    <PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="6.0.5" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.3" />
@@ -21,6 +23,10 @@
     <ProjectReference Include="..\eShopCln.Application\eShopCln.Application.csproj" />
     <ProjectReference Include="..\eShopCln.Contracts\eShopCln.Contracts.csproj" />
     <ProjectReference Include="..\eShopCln.Infrastructure\eShopCln.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Health\" />
   </ItemGroup>
 
 </Project>
