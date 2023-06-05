@@ -9,8 +9,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace eShopCln.API.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
-[ApiVersion("1.0")]
+[Route("api/v{version:apiVersion}/[controller]")]
+[ApiVersion("1")]
 public class ProductsController : ApiController
 {
     private readonly IMapper _mapper;
