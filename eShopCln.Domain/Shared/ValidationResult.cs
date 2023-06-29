@@ -2,13 +2,13 @@
 
 public sealed class ValidationResult : Result, IValidationResult
 {
-    private ValidationResult(Error[] errors)
-    : base(false, IValidationResult.ValidationError)
+    private ValidationResult(IEnumerable<Error> errors)
+        : base(false, IValidationResult.ValidationError)
     {
         Errors = errors;
     }
 
-    public Error[] Errors { get; }
+    public IEnumerable<Error> Errors { get; }
 
-    public static ValidationResult WithErrors(Error[] errors) => new ValidationResult(errors);
+    public static ValidationResult WithErrors(IEnumerable<Error> errors) => new ValidationResult(errors);
 }
