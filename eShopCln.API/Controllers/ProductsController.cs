@@ -55,9 +55,10 @@ public class ProductsController : ApiController
     }
 
     [HttpPut("{id:guid}")]
-    public async Task<IActionResult> UpdateProduct(UpdateProductRequest product)
+    public async Task<IActionResult> UpdateProduct(Guid id, UpdateProductRequest product)
     {
         var productCommand = _mapper.Map<UpdateProductCommand>(product);
+        productCommand.Id = id;
 
         var result = await _sender.Send(productCommand);
 

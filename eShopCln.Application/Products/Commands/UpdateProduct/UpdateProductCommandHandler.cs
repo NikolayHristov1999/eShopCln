@@ -1,5 +1,4 @@
 ﻿using eShopCln.Domain.Common.Repositories;
-using eShopCln.Domain.Products;
 using eShopCln.Domain.Shared;
 using MediatR;
 
@@ -16,7 +15,7 @@ public sealed class UpdateProductCommandHandler : IRequestHandler<UpdateProductC
 
     public async Task<Result> Handle(UpdateProductCommand request, CancellationToken cancellationToken)
     {
-        var dbProduct = _productRepository.GetByIdAsync(request.Id).Result;
+        var dbProduct = await _productRepository.GetByIdAsync(request.Id);
 
         if (dbProduct is null)
         {

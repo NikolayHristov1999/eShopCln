@@ -4,9 +4,12 @@ using MediatR;
 namespace eShopCln.Application.Products.Commands.UpdateProduct;
 
 public sealed record UpdateProductCommand(
-    Guid Id,
     string Name,
     decimal Price,
     int Quantity,
     string ShortDescription,
-    string? Description) : IRequest<Result>;
+    string? Description) 
+    : IRequest<Result>
+{
+    public Guid Id { get; set; }
+}
