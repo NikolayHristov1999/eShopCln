@@ -6,5 +6,5 @@ public interface IValidationResult
         "ValidationError",
         "A validation problem occurred.");
 
-    Error[] Errors { get; }
+    IEnumerable<Error> Errors { get; }
 }

@@ -29,7 +29,7 @@ public abstract class ApiController : ControllerBase
                 result.Error))
     };
 
-    private static ProblemDetails CreateProblemDetails(string title, int status, Error error, Error[]? errors = null)
+    private static ProblemDetails CreateProblemDetails(string title, int status, Error error, IEnumerable<Error>? errors = null)
     => new ProblemDetails()
     {
         Title = title,
