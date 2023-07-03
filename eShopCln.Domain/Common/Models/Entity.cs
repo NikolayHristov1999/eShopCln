@@ -11,9 +11,9 @@ public abstract class Entity : IEquatable<Entity>, IAuditableEntity
 
     public Guid Id { get; private init; }
 
-    public DateTime CreatedOn { get; set; }
+    public DateTime CreatedOnUtc { get; set; }
 
-    public DateTime? LastModifiedOn { get; set; }
+    public DateTime? LastModifiedOnUtc { get; set; }
 
     public static bool operator ==(Entity? first, Entity? second) =>
         first is not null && second is not null && first.Equals(second);

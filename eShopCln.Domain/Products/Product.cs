@@ -4,7 +4,7 @@ using eShopCln.Domain.ProductReviews;
 
 namespace eShopCln.Domain.Products;
 
-public sealed class Product : AggregateRoot
+public sealed class Product : DeletableAggregateRoot
 {
     private readonly List<ProductReview> _productReviews = new();
 
