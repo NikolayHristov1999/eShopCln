@@ -1,5 +1,6 @@
 ﻿using eShopCln.Domain.Common.Repositories;
 using eShopCln.Infrastructure.Persistence;
+using eShopCln.Infrastructure.Persistence.Interceptors;
 using eShopCln.Infrastructure.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -17,9 +18,20 @@ public static class DependencyInjectionRegister
 
     public static IServiceCollection AddPersistance(this IServiceCollection services, IConfiguration configuration)
     {
+        services.AddSingleton<UpdateAuditableEntitiesInterceptor>();
+        services.AddSingleton<UpdateSoftDeletableEntityInterceptor>();
+
         //TODO: extract into a configuration file
-        services.AddDbContext<EShopClnDbContext>(options =>
-            options.UseSqlServer(configuration["Database:ConnectionString"]!));
+        services.AddDbContext<EShopClnDbContext>((sp, options) =>
+        {
+            var updateInterceptor = sp.GetRequiredService<UpdateAuditableEntitiesInterceptor>();
+            var deleteInterceptor = sp.GetRequiredService<UpdateSoftDeletableEntityInterceptor>();
+
+            options.UseSqlServer(configuration["Database:ConnectionString"]!)
+                .AddInterceptors(
+                    deleteInterceptor,
+                    updateInterceptor);
+        });
 
         services.AddScoped<IProductRepository, ProductRepository>();
         return services;

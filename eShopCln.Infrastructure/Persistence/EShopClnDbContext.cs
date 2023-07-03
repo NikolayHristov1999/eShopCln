@@ -17,8 +17,7 @@ public sealed class EShopClnDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder
-            .ApplyConfigurationsFromAssembly(InfrastructureAssembly.Instance);
+        modelBuilder.ApplyConfigurationsFromAssembly(InfrastructureAssembly.Instance);
 
         base.OnModelCreating(modelBuilder);
     }
