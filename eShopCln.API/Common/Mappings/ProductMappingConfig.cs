@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using eShopCln.Application.Products.Commands.CreateProduct;
+using eShopCln.Application.Products.Commands.UpdateProduct;
 using eShopCln.Contracts.Products;
 
 namespace eShopCln.API.Common.Mappings
@@ -8,6 +9,7 @@ namespace eShopCln.API.Common.Mappings
     {
         public ProductMappingConfig()
         {
+            CreateMap<UpdateProductRequest, UpdateProductCommand>();
             CreateMap<CreateProductRequest, CreateProductCommand>();
         }
     }

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using eShopCln.API.Abstractions;
 using eShopCln.Application.Products.Commands.CreateProduct;
+using eShopCln.Application.Products.Commands.UpdateProduct;
 using eShopCln.Application.Products.Queries.GetProductById;
 using eShopCln.Contracts.Products;
 using MediatR;
@@ -51,5 +52,21 @@ public class ProductsController : ApiController
             nameof(GetProductById),
             new { id = result.Value },
             result.Value);
+    }
+
+    [HttpPut("{id:guid}")]
+    public async Task<IActionResult> UpdateProduct(Guid id, UpdateProductRequest product)
+    {
+        var productCommand = _mapper.Map<UpdateProductCommand>(product);
+        productCommand.Id = id;
+
+        var result = await _sender.Send(productCommand);
+
+        if (result.IsFailure)
+        {
+            return HandleFailure(result);
+        }
+
+        return NoContent();
     }
 }

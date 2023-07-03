@@ -57,4 +57,18 @@ public sealed class Product : AggregateRoot
         product.AverageRating = AverageRating.CreateNew(0);
         return product;
     }
+
+    public void Update(
+        string name,
+        string shortDescription,
+        string? description,
+        decimal price,
+        int quantity)
+    {
+        Name = name;
+        ShortDescription = shortDescription;
+        Description = description;
+        Price = price;
+        Quantity = quantity;
+    }
 }
