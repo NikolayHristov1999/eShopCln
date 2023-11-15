@@ -1,6 +1,4 @@
-﻿using eShopCln.Domain.Products;
-
-namespace eShopCln.Domain.Common.Repositories
+﻿namespace eShopCln.Domain.Products
 {
     public interface IProductRepository
     {

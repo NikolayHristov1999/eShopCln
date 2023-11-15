@@ -1,5 +1,4 @@
-﻿using eShopCln.Domain.Common.Repositories;
-using eShopCln.Domain.Products;
+﻿using eShopCln.Domain.Products;
 
 namespace eShopCln.Infrastructure.Persistence.Repositories
 {

@@ -1,4 +1,4 @@
-﻿using eShopCln.Domain.Common.Repositories;
+﻿using eShopCln.Domain.Products;
 using eShopCln.Infrastructure.Persistence;
 using eShopCln.Infrastructure.Persistence.Interceptors;
 using eShopCln.Infrastructure.Persistence.Repositories;

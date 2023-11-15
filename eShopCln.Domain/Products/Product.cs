@@ -18,7 +18,7 @@ public sealed class Product : DeletableAggregateRoot
 
     public int Quantity { get; private set; }
 
-    public AverageRating AverageRating { get; private set; }
+    public AverageRating AverageRating { get; private set; } = default!;
 
     public IReadOnlyCollection<ProductReview> Reviews => _productReviews.AsReadOnly();
 
