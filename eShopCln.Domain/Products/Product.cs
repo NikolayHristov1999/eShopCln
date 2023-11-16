@@ -1,4 +1,5 @@
-﻿using eShopCln.Domain.Common.Models;
+﻿using eShopCln.Domain.Categories;
+using eShopCln.Domain.Common.Models;
 using eShopCln.Domain.Common.ValueObjects;
 using eShopCln.Domain.ProductReviews;
 
@@ -7,6 +8,7 @@ namespace eShopCln.Domain.Products;
 public sealed class Product : DeletableAggregateRoot
 {
     private readonly List<ProductReview> _productReviews = new();
+    private readonly List<Category> _productCategories = new();
 
     public decimal Price { get; private set; }
 
@@ -22,13 +24,16 @@ public sealed class Product : DeletableAggregateRoot
 
     public IReadOnlyCollection<ProductReview> Reviews => _productReviews.AsReadOnly();
 
+    public IReadOnlyCollection<Category> Categories => _productCategories.AsReadOnly();
+
     private Product(
         Guid id,
         decimal price,
         string name,
         int quantity,
         string? shortDescription,
-        string? description)
+        string? description,
+        List<Category> categories)
         : base(id)
     {
         Price = price;
@@ -36,6 +41,7 @@ public sealed class Product : DeletableAggregateRoot
         Quantity = quantity;
         ShortDescription = shortDescription;
         Description = description;
+        _productCategories = categories;
     }
 
     public static Product CreateProduct(
@@ -44,7 +50,8 @@ public sealed class Product : DeletableAggregateRoot
         string name,
         int quantity,
         string? shortDescription,
-        string? description)
+        string? description,
+        ICollection<Category> categories)
     {
         var product = new Product(
             id,
@@ -52,7 +59,8 @@ public sealed class Product : DeletableAggregateRoot
             name,
             quantity,
             shortDescription,
-            description);
+            description,
+            categories.ToList());
 
         product.AverageRating = AverageRating.CreateNew(0);
         return product;

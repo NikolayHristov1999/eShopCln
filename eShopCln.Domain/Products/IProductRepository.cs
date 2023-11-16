@@ -1,11 +1,8 @@
-﻿namespace eShopCln.Domain.Products
+﻿using eShopCln.Domain.Common.Repositories;
+
+namespace eShopCln.Domain.Products
 {
-    public interface IProductRepository
+    public interface IProductRepository : IBaseEntityRepository<Product>
     {
-        Task AddAsync(Product product);
-
-        Task<Product?> GetByIdAsync(Guid id);
-
-        Task UpdateAsync(Product product);
     }
 }
