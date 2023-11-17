@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using eShopCln.Infrastructure.Persistence;
 
@@ -11,9 +12,11 @@ using eShopCln.Infrastructure.Persistence;
 namespace eShopCln.Infrastructure.Migrations
 {
     [DbContext(typeof(EShopClnDbContext))]
-    partial class EShopClnDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231117170109_AddCategoryTable")]
+    partial class AddCategoryTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

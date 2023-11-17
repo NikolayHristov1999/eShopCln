@@ -16,13 +16,13 @@ public class ProductReview : AggregateRoot
         Comment = comment;
     }
 
-    public Rating Rating { get; private set; }
+    public Rating Rating { get; private set; } = null!;
 
     public string Comment { get; private set; }
 
     public Guid ProductId { get; private set; }
 
-    public Product Product { get; private set; }
+    public Product Product { get; private set; } = null!;
 
     public static ProductReview CreateProductReview(
         Guid id,

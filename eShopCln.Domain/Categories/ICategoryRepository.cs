@@ -6,6 +6,8 @@ namespace eShopCln.Domain.Categories
     {
         public Task<Category?> GetByNameAsync(string name);
 
-        public Task<IEnumerable<Category>> GetWithProductsAsync();
+        public Task<IEnumerable<Category>> GetCategoriesByIdsAsync(IEnumerable<Guid> categoryIds);
+
+        public Task<IEnumerable<Category>> GetAll(int page, int pageSize, bool includeProducts);
     }
 }

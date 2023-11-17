@@ -1,4 +1,5 @@
-﻿using eShopCln.Domain.Products;
+﻿using eShopCln.Domain.Categories;
+using eShopCln.Domain.Products;
 using eShopCln.Infrastructure.Persistence;
 using eShopCln.Infrastructure.Persistence.Interceptors;
 using eShopCln.Infrastructure.Persistence.Repositories;
@@ -34,6 +35,8 @@ public static class DependencyInjectionRegister
         });
 
         services.AddScoped<IProductRepository, ProductRepository>();
+        services.AddScoped<ICategoryRepository, CategoryRepository>();
+
         return services;
     }
 }

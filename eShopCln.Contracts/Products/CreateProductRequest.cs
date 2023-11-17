@@ -5,4 +5,5 @@ public sealed record CreateProductRequest(
     decimal Price,
     string ShortDescription,
     string? Description,
-    int Quantity);
+    int Quantity,
+    IEnumerable<Guid> CategoryIds);

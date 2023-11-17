@@ -5,7 +5,7 @@ using eShopCln.Contracts.Products;
 
 namespace eShopCln.API.Common.Mappings
 {
-    public class ProductMappingConfig : Profile
+    public sealed class ProductMappingConfig : Profile
     {
         public ProductMappingConfig()
         {

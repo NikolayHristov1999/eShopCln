@@ -16,11 +16,11 @@ public sealed class Category : DeletableAggregateRoot
 
     public string Name { get; private set; }
 
-    public string Description { get; private set; }
+    public string? Description { get; private set; }
 
     public int Priority { get; set; }
 
-    public IReadOnlyList<Product> Products => _products.ToList();
+    public IReadOnlyList<Product> Products => _products.AsReadOnly();
 
     public static Category Create(string name, string description, int priority = 0)
     {
@@ -39,5 +39,10 @@ public sealed class Category : DeletableAggregateRoot
     public void AddProduct(Product product)
     {
         _products.Add(product);
+    }
+
+    public void RemoveProduct(Product product)
+    {
+        _products.Remove(product);
     }
 }

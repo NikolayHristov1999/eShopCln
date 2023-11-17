@@ -12,7 +12,7 @@ namespace eShopCln.API.Controllers;
 [ApiController]
 [Route("api/v{version:apiVersion}/[controller]")]
 [ApiVersion("1")]
-public class ProductsController : ApiController
+public sealed class ProductsController : ApiController
 {
     private readonly IMapper _mapper;
 

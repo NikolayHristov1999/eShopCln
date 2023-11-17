@@ -32,8 +32,7 @@ public sealed class Product : DeletableAggregateRoot
         string name,
         int quantity,
         string? shortDescription,
-        string? description,
-        List<Category> categories)
+        string? description)
         : base(id)
     {
         Price = price;
@@ -41,7 +40,6 @@ public sealed class Product : DeletableAggregateRoot
         Quantity = quantity;
         ShortDescription = shortDescription;
         Description = description;
-        _productCategories = categories;
     }
 
     public static Product CreateProduct(
@@ -50,8 +48,7 @@ public sealed class Product : DeletableAggregateRoot
         string name,
         int quantity,
         string? shortDescription,
-        string? description,
-        ICollection<Category> categories)
+        string? description)
     {
         var product = new Product(
             id,
@@ -59,8 +56,7 @@ public sealed class Product : DeletableAggregateRoot
             name,
             quantity,
             shortDescription,
-            description,
-            categories.ToList());
+            description);
 
         product.AverageRating = AverageRating.CreateNew(0);
         return product;
@@ -78,5 +74,15 @@ public sealed class Product : DeletableAggregateRoot
         Description = description;
         Price = price;
         Quantity = quantity;
+    }
+
+    public void AddToCategory(Category category)
+    {
+        _productCategories.Add(category);
+    }
+
+    public void RemoveFromCategory(Category category)
+    {
+        _productCategories.Remove(category);
     }
 }

@@ -1,4 +1,5 @@
-﻿using eShopCln.Domain.ProductReviews;
+﻿using eShopCln.Domain.Categories;
+using eShopCln.Domain.ProductReviews;
 using eShopCln.Domain.Products;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,6 +15,8 @@ public sealed class EShopClnDbContext : DbContext
     public DbSet<Product> Products { get; set; } = null!;
 
     public DbSet<ProductReview> ProductReviews { get; set; } = null!;
+
+    public DbSet<Category> Categories { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

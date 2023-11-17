@@ -8,5 +8,6 @@ public sealed record CreateProductCommand(
     decimal Price,
     int Quantity,
     string ShortDescription,
-    string? Description)
+    string? Description,
+    IEnumerable<Guid> CategoryIds)
     : IRequest<Result<Guid>>;

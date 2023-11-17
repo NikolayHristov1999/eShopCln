@@ -11,7 +11,5 @@ namespace eShopCln.Domain.Common.Repositories
         Task<T?> GetByIdAsync(Guid id);
 
         Task DeleteAsync(T entity);
-
-        Task<IEnumerable<T>> GetAllAsync();
     }
 }
