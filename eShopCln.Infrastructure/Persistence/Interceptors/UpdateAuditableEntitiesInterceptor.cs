@@ -1,6 +1,6 @@
 ﻿using eShopCln.Domain.Common.Models.Interfaces;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using Microsoft.EntityFrameworkCore;
 
 namespace eShopCln.Infrastructure.Persistence.Interceptors;
 
@@ -19,16 +19,18 @@ public sealed class UpdateAuditableEntitiesInterceptor : SaveChangesInterceptor
         }
 
         var auditableEntries = dbContext.ChangeTracker
-            .Entries<IDeletableEntity>();
+            .Entries<IAuditableEntity>();
 
         foreach (var entry in auditableEntries)
         {
-            if (entry.State == EntityState.Deleted)
+            if (entry.State == EntityState.Added)
             {
-                entry.Property(e => e.DeletedOnUtc).CurrentValue = DateTime.UtcNow;
-                entry.Property(e => e.IsDeleted).CurrentValue = true;
+                entry.Property(e => e.CreatedOnUtc).CurrentValue = DateTime.UtcNow;
+            }
 
-                entry.State = EntityState.Modified;
+            if (entry.State == EntityState.Modified)
+            {
+                entry.Property(e => e.LastModifiedOnUtc).CurrentValue = DateTime.UtcNow;
             }
         }
 

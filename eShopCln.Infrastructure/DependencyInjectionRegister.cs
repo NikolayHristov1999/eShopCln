@@ -19,14 +19,14 @@ public static class DependencyInjectionRegister
 
     public static IServiceCollection AddPersistance(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddSingleton<UpdateAuditableEntitiesInterceptor>();
         services.AddSingleton<UpdateSoftDeletableEntityInterceptor>();
+        services.AddSingleton<UpdateAuditableEntitiesInterceptor>();
 
         //TODO: extract into a configuration file
         services.AddDbContext<EShopClnDbContext>((sp, options) =>
         {
-            var updateInterceptor = sp.GetRequiredService<UpdateAuditableEntitiesInterceptor>();
-            var deleteInterceptor = sp.GetRequiredService<UpdateSoftDeletableEntityInterceptor>();
+            var updateInterceptor = sp.GetRequiredService<UpdateSoftDeletableEntityInterceptor>();
+            var deleteInterceptor = sp.GetRequiredService<UpdateAuditableEntitiesInterceptor>();
 
             options.UseSqlServer(configuration["Database:ConnectionString"]!)
                 .AddInterceptors(

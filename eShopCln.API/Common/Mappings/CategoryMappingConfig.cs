@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using eShopCln.Application.Categories.Commands.CreateCategory;
+using eShopCln.Application.Categories.Commands.UpdateCategory;
 using eShopCln.Contracts.Categories;
 
 namespace eShopCln.API.Common.Mappings
@@ -9,6 +10,7 @@ namespace eShopCln.API.Common.Mappings
         public CategoryMappingConfig()
         {
             CreateMap<CreateCategoryRequest, CreateCategoryCommand>();
+            CreateMap<UpdateCategoryRequest, UpdateCategoryCommand>();
         }
     }
 }

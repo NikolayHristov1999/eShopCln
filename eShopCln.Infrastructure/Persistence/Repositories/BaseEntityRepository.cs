@@ -1,5 +1,6 @@
 ﻿using eShopCln.Domain.Common.Models;
 using eShopCln.Domain.Common.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace eShopCln.Infrastructure.Persistence.Repositories
 {

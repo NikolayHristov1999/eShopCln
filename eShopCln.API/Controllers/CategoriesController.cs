@@ -1,6 +1,10 @@
 ﻿using AutoMapper;
 using eShopCln.API.Abstractions;
 using eShopCln.Application.Categories.Commands.CreateCategory;
+using eShopCln.Application.Categories.Commands.DeleteCategory;
+using eShopCln.Application.Categories.Commands.UpdateCategory;
+using eShopCln.Application.Categories.Queries.GetCategories;
+using eShopCln.Application.Categories.Queries.GetCategoryById;
 using eShopCln.Application.Products.Commands.CreateProduct;
 using eShopCln.Application.Products.Commands.UpdateProduct;
 using eShopCln.Application.Products.Queries.GetProductById;
@@ -44,14 +48,59 @@ public sealed class CategoriesController : ApiController
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> GetCategoryById(Guid id)
     {
-        var query = new GetProductByIdQuery(id);
-        var product = await _sender.Send(query);
+        var query = new GetCategoryByIdQuery(id);
+        var category = await _sender.Send(query);
 
-        if (product.IsFailure)
+        if (category.IsFailure)
         {
-            return HandleFailure(product);
+            return HandleFailure(category);
         }
 
-        return Ok(product.Value);
+        return Ok(category.Value);
+    }
+
+    [HttpPut("{id:guid}")]
+    public async Task<IActionResult> UpdateCategory(Guid id, UpdateCategoryRequest categoryRequest)
+    {
+        var updateCategoryCommand = _mapper.Map<UpdateCategoryCommand>(categoryRequest);
+        updateCategoryCommand.Id = id;
+
+        var category = await _sender.Send(updateCategoryCommand);
+
+        if (category.IsFailure)
+        {
+            return HandleFailure(category);
+        }
+
+        return NoContent();
+    }
+
+    [HttpDelete("{id:guid}")]
+    public async Task<IActionResult> DeleteCategory(Guid id)
+    {
+        var deleteCategoryCommand = new DeleteCategoryCommand(id);
+
+        var result = await _sender.Send(deleteCategoryCommand);
+
+        if (result.IsFailure)
+        {
+            return HandleFailure(result);
+        }
+
+        return NoContent();
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetAllCategories()
+    {
+        var query = new GetCategoriesQuery(); // Assuming you have a GetAllCategoriesQuery class
+        var categories = await _sender.Send(query);
+
+        if (categories.IsFailure)
+        {
+            return HandleFailure(categories);
+        }
+
+        return Ok(categories.Value);
     }
 }

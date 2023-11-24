@@ -10,21 +10,21 @@ namespace eShopCln.Infrastructure.Persistence.Repositories
         {
         }
 
-        public Task<Category?> GetByNameAsync(string name)
-        {
-            return _context.Categories.FirstOrDefaultAsync(c => c.Name == name);
-        }
+        public async Task<Category?> GetByNameAsync(string name)
+            => await _context.Categories.FirstOrDefaultAsync(c => c.Name == name);
 
         public async Task<IEnumerable<Category>> GetCategoriesByIdsAsync(IEnumerable<Guid> categoryIds)
-        {
-            return await _context.Categories
+            => await _context.Categories
                 .Where(c => categoryIds.Contains(c.Id))
                 .ToListAsync();
-        }
 
-        public Task<IEnumerable<Category>> GetAll(int page, int pageSize, bool includeProducts)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<IEnumerable<Category>> GetAllAsync(bool includeProducts = false)
+            => includeProducts
+                ? await _context.Categories.Include(c => c.Products).ToListAsync()
+                : await _context.Categories.ToListAsync();
+
+
+        public async Task<bool> IsNameUniqueAsync(string name, Guid? id = null)
+            => !await _context.Categories.AnyAsync(x => x.Name == name && x.Id != id);
     }
 }

@@ -3,6 +3,7 @@ using eShopCln.API.Abstractions;
 using eShopCln.Application.Products.Commands.CreateProduct;
 using eShopCln.Application.Products.Commands.UpdateProduct;
 using eShopCln.Application.Products.Queries.GetProductById;
+using eShopCln.Application.Products.Queries.GetProducts;
 using eShopCln.Contracts.Products;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -68,5 +69,20 @@ public sealed class ProductsController : ApiController
         }
 
         return NoContent();
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetProducts()
+    {
+        var getProductsQuery = new GetProductsQuery();
+
+        var products = await _sender.Send(getProductsQuery);
+
+        if (products.IsFailure)
+        {
+            return HandleFailure(products);
+        }
+
+        return Ok(products.Value);
     }
 }
